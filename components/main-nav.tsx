@@ -11,10 +11,11 @@ export function MainNav({
     const pathname = usePathname()
     const params = useParams()
     const routes = [{
-        href: `/${params.storeId}/settings`,
+        href: `/${params.storeid}/settings`,
         label: 'Settings',
-        active: pathname === `/${params.storeId}/settings`
+        active: pathname === `/${params.storeid}/settings`
     }]
+    console.log(params)
     return (
         <nav
         className={cn("flex items-center spzce-4-x lg:space-x-6", className)}

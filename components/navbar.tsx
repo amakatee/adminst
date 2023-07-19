@@ -10,16 +10,11 @@ type Stores = {
 }
 
 const Navbar =  ({stores} : Stores ) => {
-  // const { userId } = auth()
-  // if(!userId) {
-  //   redirect("/sign-in")
-  // }
-  // const stores = await prisma.store.findMany({
-  //   where: {
-  //     userId,
-
-  //   }
-  // })
+  const { userId } = auth()
+  if(!userId) {
+    redirect("/sign-in")
+  }
+  
   return (
     <div className="border-b">
         <div className="flex items-center h-16 px-4">
