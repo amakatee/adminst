@@ -15,6 +15,8 @@ import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '
 import {Input} from '@/components/ui/input'
 import toast from 'react-hot-toast'
 import { AlertModal } from '@/components/modals/alert-modal'
+import { ApiAlert } from '@/components/ui/api-alert'
+import { useOrigin } from '@/hooks/use-origin'
 
 
 
@@ -35,7 +37,8 @@ const SettingsForm: React.FC<SettingFormProps> = ({initialData, userId}) => {
     const [ loading, setLoading ] = useState(false)
     const params = useParams()
     const router = useRouter()
-    console.log(params)
+    const origin = useOrigin()
+  
 
     const form = useForm<SettingFormValues>({
         resolver: zodResolver(formSchema),
@@ -118,10 +121,10 @@ const SettingsForm: React.FC<SettingFormProps> = ({initialData, userId}) => {
                <Button disabled={loading} className="ml-auto" type="submit">
                    Save Changes
                </Button>
-
-           </form>
-
-       </Form>
+            </form>
+        </Form>
+        <Separator />
+        <ApiAlert title="NEXT_PUBLIC_API_URL" description={`${origin}/api/${params.storeid}`} variant="public" /> 
        
       </>
     

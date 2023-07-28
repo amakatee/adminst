@@ -19,3 +19,4 @@ export async function POST(req: Request, request: NextApiRequest) {
     return new Response(JSON.stringify(store))
 
 }
+

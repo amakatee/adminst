@@ -10,11 +10,23 @@ export function MainNav({
 }: React.HTMLAttributes<HTMLElement>) {
     const pathname = usePathname()
     const params = useParams()
-    const routes = [{
-        href: `/${params.storeid}/settings`,
-        label: 'Settings',
-        active: pathname === `/${params.storeid}/settings`
-    }]
+    const routes = [
+        {
+            href: `/${params.storeid}`,
+            label: 'Overview',
+            active: pathname === `/${params.storeid}`
+        },
+        {
+            href: `/${params.storeid}/settings`,
+            label: 'Settings',
+            active: pathname === `/${params.storeid}/settings`
+        },
+        {
+            href: `/${params.storeid}/billboards`,
+            label: 'Billboards',
+            active: pathname === `/${params.storeid}/billboards`
+        }
+]
     console.log(params)
     return (
         <nav
