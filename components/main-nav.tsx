@@ -30,6 +30,8 @@ export function MainNav({
             active: pathname === `/${params.storeid}/billboards`
         }
 ]
+ let title = routes.find(route => route.active === true)?.label;
+ console.log(title)
 
     return (
         <nav
@@ -38,8 +40,8 @@ export function MainNav({
             <DropdownMenu>
               <DropdownMenuTrigger className="text-sm ">
                    <Button className="p-2 text-xs">
-                      Choose page
-                     <ChevronDown />
+                       {title}
+                    <ChevronDown />
                     </Button>
                </DropdownMenuTrigger>
              <DropdownMenuContent>
