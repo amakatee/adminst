@@ -45,7 +45,7 @@ export function MainNav({
              <DropdownMenuContent>
             <DropdownMenuSeparator />
                 {routes.map((route) => (
-                  <DropdownMenuItem>
+                  <DropdownMenuItem key={route.href}>
                     <Link
                     key={route.href}
                     href={route.href}
