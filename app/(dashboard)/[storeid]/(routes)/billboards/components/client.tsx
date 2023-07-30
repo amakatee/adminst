@@ -7,6 +7,7 @@ import { useRouter, useParams } from "next/navigation"
 import {Billboard } from '@prisma/client'
 import { BillBoardColumn, columns } from "./columns"
 import { DataTable } from "@/components/ui/data-table"
+import { ApiList } from "@/components/ui/api-list"
 
 
 interface BillBoardClientProps  {
@@ -17,14 +18,14 @@ interface BillBoardClientProps  {
 export const BillboardClient: React.FC<BillBoardClientProps> = ({data}) => {
     const router = useRouter()
     const params = useParams()
-    console.log(data)
+
     return(
         <>
         <div className="flex items-center justify-between mb-[2rem]">
-           <Heading title={`BillBoards(${data?.length})`} description="Manage"/>
+           <Heading title={`BillBoards(${data?.length})`} description="Manage billboards"/>
            <Button onClick={() => router.push(`/${params.storeid}/billboards/new`)}> 
                <Plus className="w-4 h-4 mr-2" />
-               Add new
+               Add
            </Button>
         
         </div>
@@ -32,6 +33,9 @@ export const BillboardClient: React.FC<BillBoardClientProps> = ({data}) => {
         <div>
            <DataTable columns={columns} data={data} searchKey="label"/>
         </div>
+        <Heading  title="API" description="Api calls for billboard"/>
+        <Separator />
+        <ApiList entityName="billboards" entityIdName="billboardId" />
         </>
     )
 }

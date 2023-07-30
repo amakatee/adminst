@@ -83,11 +83,11 @@ const SettingsForm: React.FC<SettingFormProps> = ({initialData, userId}) => {
       onConfirm={onDelete}
       loading={loading}
        />
-      <div>{initialData.name}</div>
-       <div className='flex items-center justify-between'>
+   
+       <div className='flex items-center justify-between mb-5'>
         <Heading
           title="Settings"
-          description="Manage store preferences"
+          description="Manage store"
         />
         <Button
           disabled={loading}
@@ -97,20 +97,20 @@ const SettingsForm: React.FC<SettingFormProps> = ({initialData, userId}) => {
         > <Trash className='w-4 h-4' />
         </Button>
        </div>
-       <Separator />
+      
        <Form {...form}>
            <form 
-           className='w-full space y-8'
+           className='grid w-full grid-cols-1 gap-8 mb-10'
            onSubmit={form.handleSubmit(onSubmit)}>
-               <div className='grid grid-cols-3 gap-8'>
+               <div className=''>
                    <FormField
                    control={form.control}
                    name='name'
                    render={({field}) => (
                        <FormItem>
-                           <FormLabel>Name</FormLabel>
+                           <FormLabel> Name:</FormLabel>
                            <FormControl>
-                               <Input disabled={loading} placeholder="Store Name" {...field}/>
+                               <Input className='w-[80vw]' disabled={loading} placeholder="Store Name" {...field}/>
                            </FormControl>
                            <FormMessage />
                        </FormItem>

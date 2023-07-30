@@ -65,12 +65,8 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
         <UploadButton
         endpoint="mediaPost"
         onClientUploadComplete={(res) => {
-
-            console.log(res)
-            console.log(res?.find(img => img.fileUrl)?.fileUrl)
-          
         if(res) {
-            console.log("Files: ", res);
+
             toast.success("Image Uploaded")
             onChange(res?.find(img => img.fileUrl)?.fileUrl  || "")
             // onChange(res.map(image => image.fileUrl))

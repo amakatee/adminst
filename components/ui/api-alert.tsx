@@ -32,14 +32,15 @@ export const ApiAlert: React.FC<ApiAlertProps> = ({
         toast.success("Api route copied")
     }
     return (
-        <Alert>
+        
+        <Alert className="mb-4 ">
             <ServerIcon className="w-4 h-4" />
             <AlertTitle className="flex items-center gap-x-2">
                 {title}
                 <Badge variant={variantMap[variant]}>{textMap[variant]}</Badge>
             </AlertTitle>
-            <AlertDescription className="flex items-center justify-between mt-4">
-                <code className="relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">
+            <AlertDescription className="flex items-center overflow-scroll">
+                <code className="relative rounded bg-muted px-[3.3rem] py-[0.2rem]  font-mono text-sm ">
                     {description}
                 </code>
                 <Button variant="outline" size="icon" onClick={onCopy}>
@@ -49,5 +50,6 @@ export const ApiAlert: React.FC<ApiAlertProps> = ({
                 
             </AlertDescription>
         </Alert>
+        
     )
 }

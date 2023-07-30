@@ -2,7 +2,10 @@
 
 import { cn } from "@/lib/utils";
 import { usePathname, useParams } from "next/navigation";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuItem, DropdownMenuSeparator } from "./ui/dropdown-menu";
 import Link from "next/link";
+import { Button } from "./ui/button";
+import { ChevronDown } from "lucide-react";
 
 export function MainNav({
     className,
@@ -27,21 +30,32 @@ export function MainNav({
             active: pathname === `/${params.storeid}/billboards`
         }
 ]
-    console.log(params)
+
     return (
         <nav
         className={cn("flex items-center spzce-4-x lg:space-x-6", className)}
         >
-            {routes.map((route) => (
-                <Link
-                key={route.href}
-                href={route.href}
-                className={cn("text-sm font-meium transition-colors hover;text-promary",
-                route.active ? "text-black dark:text-white": "text-muted-foreground")}
-                >{route.label}</Link>
-            ))}
-
-
-        </nav>
+            <DropdownMenu>
+              <DropdownMenuTrigger className="text-sm ">
+                   <Button className="p-2 text-xs">
+                      Choose page
+                     <ChevronDown />
+                    </Button>
+               </DropdownMenuTrigger>
+             <DropdownMenuContent>
+            <DropdownMenuSeparator />
+                {routes.map((route) => (
+                  <DropdownMenuItem>
+                    <Link
+                    key={route.href}
+                    href={route.href}
+                    className={cn("text-sm font-meium transition-colors hover;text-promary",
+                    route.active ? "text-black dark:text-white": "text-muted-foreground")}
+                    >{route.label}</Link>
+                </DropdownMenuItem>
+             ))}
+             </DropdownMenuContent>
+            </DropdownMenu>
+           </nav>
     )
 }

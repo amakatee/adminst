@@ -13,8 +13,8 @@ export default async function BillBoarsPage ({
         }
     })
     return (
-        <div className="flex-col">
-            <div className="flex-1 pt-6 space-y-4 p8">
+        <div className="flex-col ">
+            <div className="flex-1 p-8 pr-6 ">
                 <BillboardForm  initialData={billboard}/>
             </div> 
           

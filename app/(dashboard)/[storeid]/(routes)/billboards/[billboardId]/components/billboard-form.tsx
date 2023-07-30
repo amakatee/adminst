@@ -32,19 +32,16 @@ interface BillboardFormValuesProps {
 }
 
 
-
-
 const BillboardForm: React.FC<BillboardFormValuesProps> = ({initialData}) => {
     const [ open, setOpen ] = useState(false)
     const [ loading, setLoading ] = useState(false)
     const params = useParams()
     const router = useRouter()
-    console.log(params)
 
-    const title = initialData ? "Edit a  BillBoard" : "Create BillBoard"
-    const description = initialData ? "Edit BillBoard" : "Add a new BillBoard"
-    const toastMessage  = initialData ? "DillBoard Updated" : "Billboard created"
-    const action = initialData ? "Create changes" : "updta changes"
+    const title = initialData ? "Edit Billboard" : "Create new BillBoard"
+    const description = initialData ? "Edit a billboard " : "Add a new BillBoard"
+    const toastMessage  = initialData ? "DillBoard succesfully Updated" : "Billboard succesfully created"
+    const action = initialData ? "Update" : "Create"
 
 
   
@@ -56,13 +53,11 @@ const BillboardForm: React.FC<BillboardFormValuesProps> = ({initialData}) => {
             imageUrl:''
         }
     })
-    console.log(form.getValues())
+ 
 
     const onSubmit = async (data:BillboardFormValues) => {
         try{
             setLoading(true)
-            console.log(params.storeid)
-            console.log(data)
             if(initialData){
                 await axios.patch(`/api/${params.storeid}/billboards/${params.billboardId}`, {data})
             } else {
@@ -74,7 +69,6 @@ const BillboardForm: React.FC<BillboardFormValuesProps> = ({initialData}) => {
             toast.success(toastMessage)
 
         }catch(err) {
-            console.log(err)
             toast.error("Something went wrong")
         } finally {
             setLoading(false)
@@ -88,7 +82,6 @@ const BillboardForm: React.FC<BillboardFormValuesProps> = ({initialData}) => {
             router.push(`/${params.storeId}/billboards`)
             toast.success("BillBoard deleted")
         }catch(err: any) {
-            console.log(err)
             toast.error("Make sure you removed all categories usinf this billboard first")
         } finally {
             setLoading(false)
@@ -104,7 +97,7 @@ const BillboardForm: React.FC<BillboardFormValuesProps> = ({initialData}) => {
       onConfirm={onDelete}
       loading={loading}
        />
-      <div></div>
+     
        <div className='flex items-center justify-between'>
         <Heading
           title={title}
@@ -124,17 +117,18 @@ const BillboardForm: React.FC<BillboardFormValuesProps> = ({initialData}) => {
        <Separator />
        <Form {...form}>
            <form 
-           className='w-full space y-8'
+           className='w-full my-8'
            onSubmit={form.handleSubmit(onSubmit)}>
-               <div className='grid grid-cols-3 gap-8'>
+               <div className='grid gap-8 grid-col-1'>
                    <FormField
                    control={form.control}
                    name='label'
                    render={({field}) => (
                        <FormItem>
-                           <FormLabel>Name</FormLabel>
+                           <FormLabel>Billboard title:</FormLabel>
                            <FormControl>
-                               <Input disabled={loading} placeholder="Billboard label" {...field}/>
+                               <Input className='w-[80vw]  block  rounded-md sm:text-sm 
+                resize-none  overflow-hidden p-2 text-lg outline-none' disabled={loading} placeholder="Billboard label" {...field}/>
                            </FormControl>
                            <FormMessage />
                        </FormItem>
@@ -145,7 +139,7 @@ const BillboardForm: React.FC<BillboardFormValuesProps> = ({initialData}) => {
                    name='imageUrl'
                    render={({field}) => (
                        <FormItem>
-                           <FormLabel>Upload Image</FormLabel>
+                           <FormLabel>Upload (Single Image or Video)</FormLabel>
                            <FormControl>
                              <ImageUpload 
                                disabled={loading}
