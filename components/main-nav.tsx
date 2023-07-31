@@ -33,6 +33,16 @@ export function MainNav({
             href: `/${params.storeid}/categories`,
             label: 'Categories',
             active: pathname === `/${params.storeid}/categories`
+        },
+        {
+            href: `/${params.storeid}/sizes`,
+            label: 'Sizes',
+            active: pathname === `/${params.storeid}/sizes`
+        },
+        {
+            href: `/${params.storeid}/colors`,
+            label: 'Colors',
+            active: pathname === `/${params.storeid}/colors`
         }
 ]
  let title = routes.find(route => route.active === true)?.label;
