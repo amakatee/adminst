@@ -28,10 +28,15 @@ export function MainNav({
             href: `/${params.storeid}/billboards`,
             label: 'Billboards',
             active: pathname === `/${params.storeid}/billboards`
+        },
+        {
+            href: `/${params.storeid}/categories`,
+            label: 'Categories',
+            active: pathname === `/${params.storeid}/categories`
         }
 ]
  let title = routes.find(route => route.active === true)?.label;
- console.log(title)
+
 
     return (
         <nav
@@ -39,10 +44,10 @@ export function MainNav({
         >
             <DropdownMenu>
               <DropdownMenuTrigger className="text-sm ">
-                   <Button className="p-2 text-xs">
+                   <div className="flex items-center p-2 align-center ">
                        {title}
                     <ChevronDown />
-                    </Button>
+                    </div>
                </DropdownMenuTrigger>
              <DropdownMenuContent>
             <DropdownMenuSeparator />
