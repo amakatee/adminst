@@ -14,11 +14,13 @@ export default async function ProductsPage({params} : {params: { storeId: string
           category: true,
           size: true,
           color: true,
+       
         },
         orderBy: {
           createdAt: 'desc'
         }
       });
+      console.log(products)
       const formattedProducts: ProductColumn[] = products.map((item) => ({
         id: item.id,
         name: item.name,
@@ -29,6 +31,7 @@ export default async function ProductsPage({params} : {params: { storeId: string
         size: item.size.name,
         color: item.color.value,
         createdAt: format(item.createdAt, 'MMMM do, yyyy'),
+       
       }));
 
     return <div className="flex-col"> 

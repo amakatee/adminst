@@ -14,10 +14,8 @@ export async function POST(
   
 
     const {name, billboardId} = body.data
-    console.log(params.storeId, billboardId, name)
-
     if(!name || !billboardId )  return new NextResponse("Data is required", {status: 400})
-     if(!params.storeId)  return new NextResponse("Store id is required", {status: 400})
+    if(!params.storeId)  return new NextResponse("Store id is required", {status: 400})
     const category = await prisma.category.create({
         data: {
             name,
@@ -25,34 +23,35 @@ export async function POST(
             storeId: params.storeId
         }
     })
+    
     return new Response(JSON.stringify(category))
       
   } catch(err) {
-      console.log('[CATEGORY_ERROR' , err)
+      console.log('[CATEGORY_POST' , err)
   }
 
 }
+
+
 
 export async function GET(
-    req: Request,{params} : {params: {storeId: string}}
-    ) {
+  req: Request,
+  { params }: { params: { storeId: string } }
+) {
   try {
-    const body = await req.json()
+    if (!params.storeId) {
+      return new NextResponse("Store id is required", { status: 400 });
+    }
 
-    const {name, billboardId} = body
+    const categories = await prisma.category.findMany({
+      where: {
+        storeId: params.storeId
+      }
+    });
+    return new Response(JSON.stringify(categories))
 
-    if(!name || !billboardId )  return new NextResponse("Data is required", {status: 400})
-     if(!params.storeId)  return new NextResponse("Store id is required", {status: 400})
-    const category = await prisma.category.findMany({
-        where: {
-           
-            storeId: params.storeId
-        }
-    })
-    return new Response(JSON.stringify(category))
-      
-  } catch(err) {
-      console.log('[CATEGORY_ERROR' , err)
+  } catch (error) {
+    console.log('[CATEGORIES_GET]', error);
+    return new NextResponse("Internal error", { status: 500 });
   }
-
-}
+};

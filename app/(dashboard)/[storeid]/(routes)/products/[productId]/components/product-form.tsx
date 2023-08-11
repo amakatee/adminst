@@ -23,8 +23,8 @@ import { Checkbox } from '@/components/ui/checkbox'
 
 const formSchema = z.object({
     name: z.string().min(1),
+    description: z.string().min(1),
     images: z.object({ url: z.string() }).array(),
-   // images: z.any(),
     price: z.coerce.number().min(1),
     categoryId: z.string().min(1),
     colorId: z.string().min(1),
@@ -159,6 +159,19 @@ const ProdcuctForm: React.FC<ProductFormValuesProps> = ({
                        </FormItem>
                    )}
                     />
+                    <FormField
+                   control={form.control}
+                   name='description'
+                   render={({field}) => (
+                       <FormItem>
+                           <FormLabel>Description:</FormLabel>
+                           <FormControl>
+                               <Input className='block p-2 overflow-hidden text-lg rounded-md outline-none resize-none sm:text-sm' disabled={loading} placeholder="Product Description" {...field}/>
+                           </FormControl>
+                           <FormMessage />
+                       </FormItem>
+                   )}
+                    />
                 <FormField
                    control={form.control}
                    name='images'
@@ -179,7 +192,7 @@ const ProdcuctForm: React.FC<ProductFormValuesProps> = ({
                            </FormControl>
                            <FormMessage />
                        </FormItem>
-                       //[...field.value, url]
+
                    )}
                     /> 
                 <FormField

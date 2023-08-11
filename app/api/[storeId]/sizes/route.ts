@@ -8,14 +8,11 @@ export async function POST(
     ) {
   try {
     const body = await req.json()
-  
-
     const {name, value} = body.data
-  
 
     if(!name || !value )  return new NextResponse("Data is required", {status: 400})
-     if(!params.storeId)  return new NextResponse("Store id is required", {status: 400})
-     const size = await prisma.size.create({
+    if(!params.storeId)  return new NextResponse("Store id is required", {status: 400})
+    const size = await prisma.size.create({
       data: {
         name,
         value,

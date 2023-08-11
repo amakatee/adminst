@@ -33,26 +33,47 @@ export async function POST(
 
 }
 
-export async function GET(
-    req: Request,{params} : {params: {storeId: string}}
-    ) {
-  try {
-    const body = await req.json()
+// export async function GET(
+//     req: Request,{params} : {params: {storeId: string}}
+//     ) {
+//   try {
+//     const body = await req.json()
 
-    const {label, imageUrl} = body
+//     const {label, imageUrl} = body
 
-    if(!label || !imageUrl )  return new NextResponse("Data is required", {status: 400})
-     if(!params.storeId)  return new NextResponse("Store id is required", {status: 400})
-    const billboards = await prisma.billboard.findMany({
-        where: {
+//     if(!label || !imageUrl )  return new NextResponse("Data is required", {status: 400})
+//      if(!params.storeId)  return new NextResponse("Store id is required", {status: 400})
+//     const billboards = await prisma.billboard.findMany({
+//         where: {
            
-            storeId: params.storeId
-        }
-    })
-    return new Response(JSON.stringify(billboards))
+//             storeId: params.storeId
+//         }
+//     })
+//     return new Response(JSON.stringify(billboards))
       
-  } catch(err) {
-      console.log('[BILLBOARD_ERROR' , err)
-  }
+//   } catch(err) {
+//       console.log('[BILLBOARD_ERROR' , err)
+//   }
 
-}
+// }
+export async function GET(
+  req: Request,
+  { params }: { params: { storeId: string } }
+) {
+  try {
+    if (!params.storeId) {
+      return new NextResponse("Store id is required", { status: 400 });
+    }
+
+    const billboards = await prisma.product.findMany({
+      where: {
+        storeId: params.storeId
+      }
+    });
+    return new Response(JSON.stringify(billboards))
+
+  } catch (error) {
+    console.log('[BILLBOARD_GET]', error);
+    return new NextResponse("Internal error", { status: 500 });
+  }
+};

@@ -17,6 +17,7 @@ model Store {
   categories      Category[]  @relation("StoreToCategory")
   sizes          Size[]     @relation("StoreToSize")
   colors          Color[]     @relation("StoreToColor")
+  // colorsize          ColorSize[]     @relation("StoreToColorSize")
   products        Product[]   @relation("StoreToProduct")
   order          Order[]   @relation("StoreToOrder")
 
@@ -64,6 +65,7 @@ model Size {
   products Product[]
   name    String
   value   String
+  // colorsize   ColorSize[]
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 
@@ -78,12 +80,30 @@ model Color {
   name        String
   value       String
   products    Product[] 
+  // colorsize   ColorSize[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
   @@index([storeId])
 }
 
+// model ColorSize {
+//   id           String   @id @default(uuid())
+//   storeId      String
+//   store        Store    @relation("StoreToColorSize", fields: [storeId], references: [id])
+//   colorId      String
+//   products     Product[]
+//   color       Color     @relation(fields: [colorId], references: [id])
+//   sizeId      String
+//   size        Size     @relation(fields: [sizeId], references: [id])
+//   createdAt   DateTime  @default(now())
+//   updatedAt   DateTime  @updatedAt
+
+  
+//   @@index([colorId])
+//   @@index([sizeId])
+//   @@index([storeId])
+// }
 model Product {
   id          String    @id @default(uuid())
   storeId     String    // Foreign Key to Store
@@ -91,10 +111,13 @@ model Product {
   categoryId  String    // Foreign Key to Category
   category    Category  @relation("CategoryToProduct", fields: [categoryId], references: [id])
   name        String
+  description String
   price       Decimal
   isFeatured  Boolean   @default(false)
   isArchived  Boolean   @default(false)
-  sizeId      String    // Foreign Key to Size
+  // colorsizeId String
+  // colorsize   ColorSize  @relation(fields: [colorsizeId], references: [id])
+  sizeId      String    // Foreign Key to Size 
   size        Size      @relation(fields: [sizeId], references: [id])
   colorId     String    // Foreign Key to Color
   color       Color     @relation(fields: [colorId], references: [id])
@@ -107,6 +130,7 @@ model Product {
   @@index([categoryId])
   @@index([sizeId])
   @@index([colorId])
+  // @@index([colorsizeId])
 }
 model Image {
   id        String    @id  @default(uuid())
